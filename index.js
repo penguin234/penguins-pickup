@@ -14,7 +14,7 @@ const master_query = require('./database/admin/master_query');
 const wrapped_master_query = ((master_query, pool) => ((command) => master_query))(master_query, dbpool);
 
 app.post('/api/admin/master_query', (req, res) => {
-  const command = req.body.command;
+  //const command = req.body.command;
   res.send('asdf');
   return;
   (async () => {
