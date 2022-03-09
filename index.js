@@ -20,8 +20,13 @@ const wrapped_master_query = ((master_query, pool) => ((command) => master_query
 app.post('/api/admin/master_query', (req, res) => {
   const command = req.body.command;
   (async () => {
-    let query_result = await wrapped_master_query(command);
-    res.json({'data': query_result});
+    try {
+      let query_result = await wrapped_master_query(command);
+      res.json({'data': query_result});
+    }
+    catch (error) {
+      res.json({'data': error});
+    }
   })();
 });
 
