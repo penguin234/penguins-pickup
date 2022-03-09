@@ -25,6 +25,8 @@ app.post('/api/admin/master_query', (req, res) => {
       res.json({'data': query_result});
     }
     catch (error) {
+      console.log("error executing " + command);
+      console.log(error);
       res.json({'data': error});
     }
   })();
