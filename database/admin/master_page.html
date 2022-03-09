@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title> database admin </title>
+
+        <script>
+            function execute_query(query) {
+                fetch('/api/admin/master_query', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 'command': query }),
+                })
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log('success');
+                    console.log(res.data);
+                    document.getElementById('result').innerText = res.data;
+                })
+                .catch((err) => {
+                    console.log('fail');
+                    console.log(err.data);
+                    document.getElementById('result').innerText = err.data;
+                });
+            }
+        </script>
+    </head>
+
+    <body>
+        <textarea rows="10" cols="30" id="query"></textarea>
+        <button onclick="execute_query(document.getElementById('query').value)"> commit </button>
+        <div id="result">
+
+        </div>
+    </body>
+</html>
