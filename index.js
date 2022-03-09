@@ -15,7 +15,7 @@ app.get('/admin/database', (req, res) => {
 });
 
 const master_query = require('./database/admin/master_query');
-const wrapped_master_query = ((master_query, pool) => ((command) => master_query))(master_query, dbpool);
+const wrapped_master_query = ((master_query, pool) => ((command) => master_query(pool, command)))(master_query, dbpool);
 
 app.post('/api/admin/master_query', (req, res) => {
   const command = req.body.command;
