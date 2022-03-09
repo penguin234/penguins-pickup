@@ -4,6 +4,10 @@ const http = require('http');
 const server = http.createServer(app);
 
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+
 const dbpool = require('./database/connect/makepool');
 
 app.get('/admin/database', (req, res) => {
