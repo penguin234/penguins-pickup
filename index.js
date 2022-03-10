@@ -33,6 +33,11 @@ app.post('/api/admin/master_query', (req, res) => {
 });
 
 
+app.get('/manage/items', (req, res) => {
+  res.sendFile(__dirname + '/manage/index.html');
+});
+
+
 app.get('/', (req, res) => {
   res.send('<h1>Hello world</h1>');
 });
