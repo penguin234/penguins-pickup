@@ -14,6 +14,7 @@ async function update_items(req, queries) {
         return {data: {id: item.item_id, name: item.item_name, content: item.item_content, category: item.category_id}, error: null};
     }
     catch (err) {
+        console.log(err);
         return {data: [], error: err};
     }
 }
