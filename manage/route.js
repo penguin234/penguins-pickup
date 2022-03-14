@@ -5,7 +5,7 @@ module.exports = function(queries) {
     const router = express.Router();
 
     router.get('/item', (req, res) => {
-        res.sendFile(__dirname + '/item.html');
+        res.sendFile(__dirname + '/pages/item.html');
     });
 
     const apis = Apis(queries);
