@@ -2,6 +2,9 @@ const express = require('express');
 
 apinames = [
     'get_items',
+    'add_item',
+    'update_item',
+    'delete_item',
 ]
 
 function wrap_api(api, queries) {

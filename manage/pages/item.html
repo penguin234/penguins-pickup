@@ -12,7 +12,7 @@
                     <h3> <input v-model="name"> <button @click="SaveItem(index)"> Save </button> <button @click="RemoveItem(index)"> remove </button> </h3>
                     <input v-model="content">
                     <select v-model="category">
-                        <option value="-1">
+                        <option value="null">
                             not selected
                         </option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">
@@ -23,7 +23,7 @@
                 <template v-else>
                     <h3> {{ item.name }} <button @click="EditItem(index)"> Edit </button> <button @click="RemoveItem(index)"> remove </button> </h3>
                     <span> {{ item.content }} </span>
-                    <b v-if="item.category != -1"> {{ categories[item.category].name }} </b>
+                    <b v-if="item.category != null"> {{ categories[item.category].name }} </b>
                 </template>
             </div>
             <div>
@@ -38,22 +38,9 @@
                     current: -1,
                     name: '이름 없음',
                     content: '',
-                    category: -1,
+                    category: null,
 
-                    items: [
-                        {
-                            id: 2,
-                            name: '황재현',
-                            category: 4,
-                            content: '그냥 황재현',
-                        },
-                        {
-                            id: 3,
-                            name: '박기범',
-                            category: 7,
-                            content: '그냥 박기범',
-                        },
-                    ],
+                    items: [],
                     categories: {
                         4: {
                             id: 4,
@@ -78,6 +65,23 @@
                     },
                 },
                 methods: {
+                    Refresh: function() {
+                        fetch('manage/api/item/all', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ 'command': query }),
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.items = res.data;
+                        })
+                        .catch((err) => {
+                            console.log('fail');
+                            console.log(err.data);
+                        });
+                    },
                     RemoveItem: function(index) {
                         this.items.splice(index, 1);
                     },
@@ -99,7 +103,7 @@
 
                         this.name = '이름 없음';
                         this.content = '';
-                        this.category = -1;
+                        this.category = null;
 
                         this.current = -1;
                     },
@@ -111,6 +115,9 @@
                             category: this.category,
                         });
                     },
+                },
+                created: function() {
+                    this.Refresh();
                 },
             });
         </script>
