@@ -33,9 +33,12 @@ app.post('/api/admin/master_query', (req, res) => {
 });
 
 
-app.get('/manage/items', (req, res) => {
-  res.sendFile(__dirname + '/manage/index.html');
-});
+const queries = require('./database/index');
+
+
+const Manage = require('./manage/route');
+
+app.use('/manage', Manage(queries));
 
 
 app.get('/', (req, res) => {

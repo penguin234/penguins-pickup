@@ -1,5 +1,5 @@
-function wrap(query, pool) {
+function wrap_query(query, pool) {
     return async (params) => query(pool, params);
 }
 
-module.exports = wrap;
+module.exports = wrap_query;
