@@ -67,11 +67,7 @@
                 methods: {
                     Refresh: function() {
                         fetch('manage/api/item/all', {
-                            method: 'post',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ 'command': query }),
+                            method: 'get',
                         })
                         .then((res) => res.json())
                         .then((res) => {
