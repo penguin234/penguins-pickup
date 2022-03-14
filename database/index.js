@@ -17,7 +17,7 @@ const wrap_query = require('./queries/wrap_query');
 
 const basepath = './queries/';
 
-for (const queryname of queryname) {
+for (const queryname of querynames) {
     const query = require(basepath + queryname);
     queries[queryname] = wrap_query(query, pool);
 }
