@@ -94,7 +94,7 @@
                             console.log('fail');
                             console.log(err.data);
                         });
-                        
+
                         this.Refresh();
                     },
                     EditItem: function(index) {
@@ -114,7 +114,7 @@
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ name: this.name, content: this.content, category: this.category, id: this.id }),
+                            body: JSON.stringify({ name: this.name, content: this.content, category: this.category, id: this.items[index].id }),
                         })
                         .then((res) => res.json())
                         .then((res) => {
