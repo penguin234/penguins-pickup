@@ -79,7 +79,23 @@
                         });
                     },
                     RemoveItem: function(index) {
-                        this.items.splice(index, 1);
+                        fetch('/manage/api/item/delete', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ id: this.items[index].id }),
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            // this.items.splice(index, 1);
+                        })
+                        .catch((err) => {
+                            console.log('fail');
+                            console.log(err.data);
+                        });
+                        
+                        this.Refresh();
                     },
                     EditItem: function(index) {
                         let item = this.items[index];
@@ -93,9 +109,23 @@
                     SaveItem: function(index) {
                         let item = this.items[index];
 
-                        item.name = this.name;
-                        item.content = this.content;
-                        item.category = this.category;
+                        fetch('/manage/api/item/update', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ name: this.name, content: this.content, category: this.category, id: this.id }),
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            item.name = res.data.name;
+                            item.content = res.data.content;
+                            item.category = res.data.category;
+                        })
+                        .catch((err) => {
+                            console.log('fail');
+                            console.log(err.data);
+                        });
 
                         this.name = '이름 없음';
                         this.content = '';
@@ -104,11 +134,20 @@
                         this.current = -1;
                     },
                     AddItem: function(message) {
-                        this.items.push({
-                            id: this.items[this.items.length - 1].id + 1,
-                            name: this.name,
-                            content: this.content,
-                            category: this.category,
+                        fetch('/manage/api/item/add', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ name: this.name, content: this.content, category: this.category }),
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.items.push(res.data);
+                        })
+                        .catch((err) => {
+                            console.log('fail');
+                            console.log(err.data);
                         });
                     },
                 },

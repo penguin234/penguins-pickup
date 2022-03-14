@@ -7,7 +7,7 @@ async function update_items(req, queries) {
             id: req.body.id,
         };
         let item = await queries.update_item(params);
-        return {data: item, error: null};
+        return {data: {id: item.item_id, name: item.item_name, content: item.item_content, category: item.category_id}, error: null};
     }
     catch (err) {
         return {data: [], error: err};
