@@ -9,8 +9,8 @@ querynames = [
     'get_items',
     'get_items_with_category',
     'add_item',
-    'update_item.js',
-    'delete_item.js',
+    'update_item',
+    'delete_item',
 ];
 
 const wrap_query = require('./queries/wrap_query');
