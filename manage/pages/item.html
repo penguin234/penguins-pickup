@@ -71,7 +71,11 @@
                         })
                         .then((res) => res.json())
                         .then((res) => {
-                            this.categories = res.data;
+                            let categories = {};
+                            for (const category of res.data) {
+                                categories[category.id] = category;
+                            }
+                            this.categories = categories;
                         })
                         .catch((err) => {
                             console.log('fail to load categories');
