@@ -11,6 +11,8 @@ querynames = [
     'add_item',
     'update_item',
     'delete_item',
+
+    'get_pickups',
 ];
 
 const wrap_query = require('./queries/wrap_query');
