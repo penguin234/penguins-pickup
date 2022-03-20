@@ -8,7 +8,7 @@ module.exports = function(queries) {
         res.sendFile(__dirname + '/pages/item.html');
     });
 
-    router.get('/pickups', (req, res) => {
+    router.get('/pickup', (req, res) => {
         res.sendFile(__dirname + '/pages/pickup.html');
     });
 
