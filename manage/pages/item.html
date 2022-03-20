@@ -9,8 +9,8 @@
         <div id="app">
             <div v-for="(item, index) in items" :key="item.id">
                 <template v-if="index == current">
-                    <h3> <input v-model="name"> <button @click="SaveItem(index)"> Save </button> <button @click="RemoveItem(index)"> remove </button> </h3>
-                    <input v-model="content">
+                    <h3> <input v-model="name" placeholder="이름 입력"> <button @click="SaveItem(index)"> Save </button> <button @click="RemoveItem(index)"> remove </button> </h3>
+                    <input v-model="content" placeholder="내용 입력">
                     <select v-model="category">
                         <option value="null">
                             not selected
@@ -27,7 +27,7 @@
                 </template>
             </div>
             <div>
-               <button @click="AddItem('haha')"> Add Item </button>
+               <button @click="AddItem()"> Add Item </button>
             </div>
         </div>
 
@@ -41,28 +41,7 @@
                     category: null,
 
                     items: [],
-                    categories: {
-                        4: {
-                            id: 4,
-                            name: 'normal',
-                            content: '평범',
-                        },
-                        5: {
-                            id: 5,
-                            name: 'rare',
-                            content: '약간 덜 평범',
-                        },
-                        6: {
-                            id: 6,
-                            name: 'unique',
-                            content: '많이 덜 평범',
-                        },
-                        7: {
-                            id: 7,
-                            name: 'epic',
-                            content: '하나도 안 평범',
-                        },
-                    },
+                    categories: {},
                 },
                 methods: {
                     Refresh: function() {
@@ -149,7 +128,7 @@
 
                         this.current = -1;
                     },
-                    AddItem: function(message) {
+                    AddItem: function() {
                         fetch('/manage/api/item/add', {
                             method: 'post',
                             headers: {
