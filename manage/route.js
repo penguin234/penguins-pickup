@@ -9,7 +9,7 @@ module.exports = function(queries) {
     });
 
     router.get('/pickups', (req, res) => {
-        res.sendFile(__dirname + '/pages/item.html');
+        res.sendFile(__dirname + '/pages/pickup.html');
     });
 
     const apis = Apis(queries);

@@ -81,7 +81,6 @@
                 },
                 methods: {
                     Refresh: function() {
-                        /*
                         fetch('https://penguins-pickup.herokuapp.com/manage/api/category/all', {
                             method: 'get',
                         })
@@ -97,7 +96,18 @@
                             console.log('fail to load categories');
                             console.log(err.data);
                         });
-                        */
+
+                        fetch('https://penguins-pickup.herokuapp.com/manage/api/pickup/all', {
+                            method: 'get',
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.pickups = res.data;
+                        })
+                        .catch((err) => {
+                            console.log('fail to load pickups');
+                            console.log(err.data);
+                        });
                     },
                     RemovePickup: function(index) {
                         /*
