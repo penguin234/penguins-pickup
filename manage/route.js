@@ -8,6 +8,10 @@ module.exports = function(queries) {
         res.sendFile(__dirname + '/pages/item.html');
     });
 
+    router.get('/pickups', (req, res) => {
+        res.sendFile(__dirname + '/pages/item.html');
+    });
+
     const apis = Apis(queries);
     router.use('/api', apis);
 

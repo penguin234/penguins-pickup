@@ -66,6 +66,18 @@
                 },
                 methods: {
                     Refresh: function() {
+                        fetch('/manage/api/category/all', {
+                            method: 'get',
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.categories = res.data;
+                        })
+                        .catch((err) => {
+                            console.log('fail to load categories');
+                            console.log(err.data);
+                        });
+                        
                         fetch('/manage/api/item/all', {
                             method: 'get',
                         })
@@ -74,7 +86,7 @@
                             this.items = res.data;
                         })
                         .catch((err) => {
-                            console.log('fail');
+                            console.log('fail to load items');
                             console.log(err.data);
                         });
                     },
