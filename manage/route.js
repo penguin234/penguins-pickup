@@ -4,6 +4,10 @@ const Apis = require('./apis/route');
 module.exports = function(queries) {
     const router = express.Router();
 
+    router.get('/', (req, res) => {
+        res.sendFile(__dirname + '/pages/index.html');
+    });
+
     router.get('/item', (req, res) => {
         res.sendFile(__dirname + '/pages/item.html');
     });

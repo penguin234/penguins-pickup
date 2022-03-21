@@ -1,4 +1,4 @@
-async function delete_items(req, queries) {
+async function delete_item(req, queries) {
     try{
         let params = {
             id: req.body.id,
@@ -12,7 +12,7 @@ async function delete_items(req, queries) {
 }
 
 module.exports = {
-    api: delete_items,
+    api: delete_item,
     path: '/item/delete',
     method: 'post',
 };

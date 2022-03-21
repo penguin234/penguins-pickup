@@ -9,6 +9,8 @@ apinames = [
     'get_categories',
 
     'get_pickups',
+    'add_pickup',
+    'delete_pickup',
 ]
 
 function wrap_api(api, queries) {

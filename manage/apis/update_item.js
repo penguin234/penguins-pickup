@@ -1,4 +1,4 @@
-async function update_items(req, queries) {
+async function update_item(req, queries) {
     try{
         let params = {
             name: req.body.name,
@@ -15,7 +15,7 @@ async function update_items(req, queries) {
 }
 
 module.exports = {
-    api: update_items,
+    api: update_item,
     path: '/item/update',
     method: 'post',
 };

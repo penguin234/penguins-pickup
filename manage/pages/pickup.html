@@ -36,48 +36,8 @@
                     content: '',
                     categories_select: [],
 
-                    pickups: [
-                        {
-                            id: 0,
-                            name: 'simple pickup',
-                            content: '그냥 뽑기',
-                            categories: [4, 5, 6, 7],
-                        },
-                        {
-                            id: 1,
-                            name: 'good pickup',
-                            content: '좋은 뽑기',
-                            categories: [5, 6, 7],
-                        },
-                        {
-                            id: 2,
-                            name: 'gibum pickup',
-                            content: '기범 뽑기',
-                            categories: [7],
-                        },
-                    ],
-                    categories: {
-                        4: {
-                            id: 4,
-                            name: 'normal',
-                            content: '평범',
-                        },
-                        5: {
-                            id: 5,
-                            name: 'rare',
-                            content: '약간 덜 평범',
-                        },
-                        6: {
-                            id: 6,
-                            name: 'unique',
-                            content: '많이 덜 평범',
-                        },
-                        7: {
-                            id: 7,
-                            name: 'epic',
-                            content: '하나도 안 평범',
-                        },
-                    },
+                    pickups: [],
+                    categories: {},
                 },
                 methods: {
                     Refresh: function() {
@@ -110,50 +70,38 @@
                         });
                     },
                     RemovePickup: function(index) {
-                        /*
                         fetch('/manage/api/pickup/delete', {
                             method: 'post',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ id: this.items[index].id }),
+                            body: JSON.stringify({ id: this.pickups[index].id }),
                         })
                         .then((res) => res.json())
                         .then((res) => {
-                            // this.items.splice(index, 1);
+                            this.pickups.splice(index, 1);
                         })
                         .catch((err) => {
                             console.log('fail');
                             console.log(err.data);
                         });
-                        */
-                        this.pickups.splice(index, 1);
-                        this.Refresh();
                     },
                     AddPickup: function() {
-                        /*
                         fetch('/manage/api/pickup/add', {
                             method: 'post',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ name: this.name, content: this.content, category: this.category }),
+                            body: JSON.stringify({ name: this.name, content: this.content, categories: this.categories_select }),
                         })
                         .then((res) => res.json())
                         .then((res) => {
-                            this.items.push(res.data);
+                            this.pickups.push(res.data);
                         })
                         .catch((err) => {
                             console.log('fail');
                             console.log(err.data);
                         });
-                        */
-                       let pickup = {};
-                       pickup.id = this.pickups[this.pickups.length - 1].id + 1;
-                       pickup.name = this.name;
-                       pickup.content = this.content;
-                       pickup.categories = this.categories_select;
-                       this.pickups.push(pickup);
 
                        this.name = '이름 없음';
                        this.content = '';
