@@ -31,9 +31,9 @@
                         data += String(i);
                         data += '</td>';
 
-                        for (const field of res.data.rows[i]) {
+                        for (const field of res.data.fields) {
                             data += '<td>';
-                            data += String(field);
+                            data += String(res.data.rows[i][field]);
                             data += '</td>';
                         }
 
