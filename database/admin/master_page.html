@@ -41,11 +41,12 @@
                     }
 
                     data += '</table>';
-                    
+
                     document.getElementById('result').innerText = data;
                 })
                 .catch((err) => {
                     console.log('fail');
+                    console.log('err');
                     console.log(err.data);
                     document.getElementById('result').innerText = err.data;
                 });
