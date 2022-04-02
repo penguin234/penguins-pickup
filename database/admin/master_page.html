@@ -16,7 +16,7 @@
                     console.log('success');
                     console.log(res.data);
                     let data = '';
-                    for (const i of res.data.rows) {
+                    for (const i in res.data.rows) {
                         data += String(i) + ': ' + String(res.data.rows[i]) + '<br>';
                     }
                     document.getElementById('result').innerText = data;
