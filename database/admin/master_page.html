@@ -15,10 +15,33 @@
                 .then((res) => {
                     console.log('success');
                     console.log(res.data);
+
                     let data = '';
-                    for (const i in res.data.rows) {
-                        data += String(i) + ': ' + String(res.data.rows[i]) + '<br>';
+                    data += '<table>';
+                    
+                    data += '<th>' + '</th>';
+                    for (const field of res.data.fields) {
+                        data += '<th>' + field.name + '</th>';
                     }
+
+                    for (const i in res.data.rows) {
+                        data += '<tr>';
+                        
+                        data += '<td>';
+                        data += String(i);
+                        data += '</td>';
+
+                        for (const field of res.data.rows[i]) {
+                            data += '<td>';
+                            data += String(field);
+                            data += '</td>';
+                        }
+
+                        data += '</tr>';
+                    }
+
+                    data += '</table>';
+                    
                     document.getElementById('result').innerText = data;
                 })
                 .catch((err) => {
