@@ -33,7 +33,7 @@
 
                         for (const field of res.data.fields) {
                             data += '<td>';
-                            data += String(res.data.rows[i][field]);
+                            data += String(res.data.rows[i][field.name]);
                             data += '</td>';
                         }
 
@@ -42,7 +42,7 @@
 
                     data += '</table>';
 
-                    document.getElementById('result').innerText = data;
+                    document.getElementById('result').innerHTML = data;
                 })
                 .catch((err) => {
                     console.log('fail');
