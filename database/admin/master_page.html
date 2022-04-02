@@ -15,7 +15,11 @@
                 .then((res) => {
                     console.log('success');
                     console.log(res.data);
-                    document.getElementById('result').innerText = res.data;
+                    let data = '';
+                    for (const i of res.data.rows) {
+                        data += String(i) + ': ' + String(res.data.rows[i]) + '<br>';
+                    }
+                    document.getElementById('result').innerText = data;
                 })
                 .catch((err) => {
                     console.log('fail');
