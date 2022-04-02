@@ -16,6 +16,10 @@ module.exports = function(queries) {
         res.sendFile(__dirname + '/pages/pickups.html');
     });
 
+    router.get('/pickup/edit', (req, res) => {
+        res.sendFile(__dirname + '/pages/pickup.html')
+    })
+
     const apis = Apis(queries);
     router.use('/api', apis);
 

@@ -5,6 +5,7 @@ apinames = [
     'add_item',
     'update_item',
     'delete_item',
+    'get_items_with_category',
 
     'get_categories',
 

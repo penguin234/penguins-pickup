@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <title> Manage Pickups </title>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <template>
+
+            </template>
+
+            <template v-else>
+                <div v-for="(pickup, index) in pickups" :key="pickup.id" style="border: 1px solid black; margin: 5px; padding: 5px;">
+                    <template>
+                        <h3> {{ pickup.name }} <button @click="RemovePickup(index)"> remove </button> </h3>
+                        <span> {{ pickup.content }} </span> <br>
+                        <span v-for="category in pickup.categories" style="background: gray; margin: 2px; padding: 1px;">
+                            {{ categories[category].name }}
+                        </span>
+                    </template>
+                </div>
+                <div style="border: 1px solid black; margin: 5px; padding: 5px;">
+                    <h3> <input v-model="name" placeholder="이름 입력"> <br> </h3>
+                    <input v-model="content" placeholder="내용 입력"> <br>
+                    <template v-for="category in categories">
+                        <input type="checkbox" :id="category.id" :value="category.id" v-model="categories_select">
+                        <label :for="category.id"> {{ category.name }} </label>
+                        <br>
+                    </template>
+                    <button @click="AddPickup()"> Add Pickup </button>
+                </div>
+            </template>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    name: '이름 없음',
+                    content: '',
+                    categories_select: [],
+
+                    pickups: [],
+                    categories: {},
+                    items: [],
+
+                },
+                methods: {
+                    Refresh: function() {
+                        fetch('https://penguins-pickup.herokuapp.com/manage/api/category/all', {
+                            method: 'get',
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            let categories = {};
+                            for (const category of res.data) {
+                                categories[category.id] = category;
+                            }
+                            this.categories = categories;
+                        })
+                        .catch((err) => {
+                            console.log('fail to load categories');
+                            console.log(err.data);
+                        });
+
+                        fetch('https://penguins-pickup.herokuapp.com/manage/api/pickup/all', {
+                            method: 'get',
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.pickups = res.data;
+                        })
+                        .catch((err) => {
+                            console.log('fail to load pickups');
+                            console.log(err.data);
+                        });
+
+                        fetch('/manage/api/item/with_category', {
+                            method: 'get',
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.items = res.data;
+                        })
+                        .catch((err) => {
+                            console.log('fail to load items');
+                            console.log(err.data);
+                        });
+                    },
+                    RemovePickup: function(index) {
+                        fetch('/manage/api/pickup/delete', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ id: this.pickups[index].id }),
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.pickups.splice(index, 1);
+                        })
+                        .catch((err) => {
+                            console.log('fail');
+                            console.log(err.data);
+                        });
+                    },
+                    AddPickup: function() {
+                        fetch('/manage/api/pickup/add', {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ name: this.name, content: this.content, categories: this.categories_select }),
+                        })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            this.pickups.push(res.data);
+                        })
+                        .catch((err) => {
+                            console.log('fail');
+                            console.log(err.data);
+                        });
+
+                       this.name = '이름 없음';
+                       this.content = '';
+                       this.categories_select = [];
+                    },
+                },
+                created: function() {
+                    this.Refresh();
+                },
+            });
+        </script>
+    </body>
+</html>
